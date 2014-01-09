@@ -1,0 +1,141 @@
+WARNING: Illegal offset type in isset or empty
+WARNING: Illegal offset type in isset or empty
+WARNING: Illegal offset type
+: Nope, nothing here.
+ L:\xampp\htdocs\KisKit\app\controllers\home.php:26 
+ #0 [internal function]: HomeController->index()
+#1 L:\xampp\htdocs\KisKit\system\core\Router.php(121): ReflectionMethod->invokeArgs(Object(HomeController), Array)
+#2 L:\xampp\htdocs\KisKit\system\core\Router.php(20): sanemethod\kiskit\system\core\Router->route(Object(sanemethod\kiskit\system\core\Request))
+#3 L:\xampp\htdocs\KisKit\index.php(41): sanemethod\kiskit\system\core\Router->__construct(Array)
+#4 {main}
+WARNING: Illegal offset type in isset or empty
+WARNING: Illegal offset type in isset or empty
+WARNING: Illegal offset type
+: Nope, nothing here.
+ L:\xampp\htdocs\KisKit\app\controllers\home.php:26 
+ #0 [internal function]: HomeController->index()
+#1 L:\xampp\htdocs\KisKit\system\core\Router.php(121): ReflectionMethod->invokeArgs(Object(HomeController), Array)
+#2 L:\xampp\htdocs\KisKit\system\core\Router.php(20): sanemethod\kiskit\system\core\Router->route(Object(sanemethod\kiskit\system\core\Request))
+#3 L:\xampp\htdocs\KisKit\index.php(41): sanemethod\kiskit\system\core\Router->__construct(Array)
+#4 {main}
+WARNING: Illegal offset type in isset or empty
+WARNING: Illegal offset type in isset or empty
+WARNING: Illegal offset type
+: Nope, nothing here.
+ L:\xampp\htdocs\KisKit\app\controllers\home.php:26 
+ #0 [internal function]: HomeController->index()
+#1 L:\xampp\htdocs\KisKit\system\core\Router.php(121): ReflectionMethod->invokeArgs(Object(HomeController), Array)
+#2 L:\xampp\htdocs\KisKit\system\core\Router.php(20): sanemethod\kiskit\system\core\Router->route(Object(sanemethod\kiskit\system\core\Request))
+#3 L:\xampp\htdocs\KisKit\index.php(41): sanemethod\kiskit\system\core\Router->__construct(Array)
+#4 {main}
+NOTICE: Undefined offset: 500
+: Nope, nothing here.
+ L:\xampp\htdocs\KisKit\app\controllers\home.php:26 
+ #0 [internal function]: HomeController->index()
+#1 L:\xampp\htdocs\KisKit\system\core\Router.php(121): ReflectionMethod->invokeArgs(Object(HomeController), Array)
+#2 L:\xampp\htdocs\KisKit\system\core\Router.php(20): sanemethod\kiskit\system\core\Router->route(Object(sanemethod\kiskit\system\core\Request))
+#3 L:\xampp\htdocs\KisKit\index.php(41): sanemethod\kiskit\system\core\Router->__construct(Array)
+#4 {main}
+WARNING: Illegal offset type in isset or empty
+WARNING: Illegal offset type in isset or empty
+WARNING: Illegal offset type
+: Nope, nothing here.
+ L:\xampp\htdocs\KisKit\app\controllers\home.php:26 
+ #0 [internal function]: HomeController->index()
+#1 L:\xampp\htdocs\KisKit\system\core\Router.php(121): ReflectionMethod->invokeArgs(Object(HomeController), Array)
+#2 L:\xampp\htdocs\KisKit\system\core\Router.php(20): sanemethod\kiskit\system\core\Router->route(Object(sanemethod\kiskit\system\core\Request))
+#3 L:\xampp\htdocs\KisKit\index.php(41): sanemethod\kiskit\system\core\Router->__construct(Array)
+#4 {main}
+WARNING: Illegal offset type in isset or empty
+WARNING: Illegal offset type in isset or empty
+WARNING: Illegal offset type
+: Nope, nothing here.
+ L:\xampp\htdocs\KisKit\app\controllers\home.php:26 
+ #0 [internal function]: HomeController->index()
+#1 L:\xampp\htdocs\KisKit\system\core\Router.php(121): ReflectionMethod->invokeArgs(Object(HomeController), Array)
+#2 L:\xampp\htdocs\KisKit\system\core\Router.php(20): sanemethod\kiskit\system\core\Router->route(Object(sanemethod\kiskit\system\core\Request))
+#3 L:\xampp\htdocs\KisKit\index.php(41): sanemethod\kiskit\system\core\Router->__construct(Array)
+#4 {main}
+WARNING: Illegal offset type in isset or empty
+WARNING: Illegal offset type in isset or empty
+WARNING: Illegal offset type
+: Nope, nothing here.
+ L:\xampp\htdocs\KisKit\app\controllers\home.php:26 
+ #0 [internal function]: HomeController->index()
+#1 L:\xampp\htdocs\KisKit\system\core\Router.php(121): ReflectionMethod->invokeArgs(Object(HomeController), Array)
+#2 L:\xampp\htdocs\KisKit\system\core\Router.php(20): sanemethod\kiskit\system\core\Router->route(Object(sanemethod\kiskit\system\core\Request))
+#3 L:\xampp\htdocs\KisKit\index.php(41): sanemethod\kiskit\system\core\Router->__construct(Array)
+#4 {main}
+WARNING: Illegal offset type in isset or empty
+WARNING: Illegal offset type in isset or empty
+WARNING: Illegal offset type
+: Nope, nothing here.
+ L:\xampp\htdocs\KisKit\app\controllers\home.php:26 
+ #0 [internal function]: HomeController->index()
+#1 L:\xampp\htdocs\KisKit\system\core\Router.php(121): ReflectionMethod->invokeArgs(Object(HomeController), Array)
+#2 L:\xampp\htdocs\KisKit\system\core\Router.php(20): sanemethod\kiskit\system\core\Router->route(Object(sanemethod\kiskit\system\core\Request))
+#3 L:\xampp\htdocs\KisKit\index.php(41): sanemethod\kiskit\system\core\Router->__construct(Array)
+#4 {main}
+NOTICE: Undefined offset: 404
+: Nope, nothing here.
+ L:\xampp\htdocs\KisKit\app\controllers\home.php:26 
+ #0 [internal function]: HomeController->index()
+#1 L:\xampp\htdocs\KisKit\system\core\Router.php(121): ReflectionMethod->invokeArgs(Object(HomeController), Array)
+#2 L:\xampp\htdocs\KisKit\system\core\Router.php(20): sanemethod\kiskit\system\core\Router->route(Object(sanemethod\kiskit\system\core\Request))
+#3 L:\xampp\htdocs\KisKit\index.php(41): sanemethod\kiskit\system\core\Router->__construct(Array)
+#4 {main}
+WARNING: Nope, nothing here.
+ L:\xampp\htdocs\KisKit\app\controllers\home.php:26 
+ #0 [internal function]: HomeController->index()
+#1 L:\xampp\htdocs\KisKit\system\core\Router.php(121): ReflectionMethod->invokeArgs(Object(HomeController), Array)
+#2 L:\xampp\htdocs\KisKit\system\core\Router.php(20): sanemethod\kiskit\system\core\Router->route(Object(sanemethod\kiskit\system\core\Request))
+#3 L:\xampp\htdocs\KisKit\index.php(41): sanemethod\kiskit\system\core\Router->__construct(Array)
+#4 {main}
+WARNING: Nope, nothing here.
+ L:\xampp\htdocs\KisKit\app\controllers\home.php:26 
+ #0 [internal function]: HomeController->index()
+#1 L:\xampp\htdocs\KisKit\system\core\Router.php(121): ReflectionMethod->invokeArgs(Object(HomeController), Array)
+#2 L:\xampp\htdocs\KisKit\system\core\Router.php(20): sanemethod\kiskit\system\core\Router->route(Object(sanemethod\kiskit\system\core\Request))
+#3 L:\xampp\htdocs\KisKit\index.php(41): sanemethod\kiskit\system\core\Router->__construct(Array)
+#4 {main}
+WARNING: Nope, nothing here.
+ L:\xampp\htdocs\KisKit\app\controllers\home.php:26 
+ #0 [internal function]: HomeController->index()
+#1 L:\xampp\htdocs\KisKit\system\core\Router.php(121): ReflectionMethod->invokeArgs(Object(HomeController), Array)
+#2 L:\xampp\htdocs\KisKit\system\core\Router.php(20): sanemethod\kiskit\system\core\Router->route(Object(sanemethod\kiskit\system\core\Request))
+#3 L:\xampp\htdocs\KisKit\index.php(41): sanemethod\kiskit\system\core\Router->__construct(Array)
+#4 {main}
+600: Nope, nothing here.
+ L:\xampp\htdocs\KisKit\app\controllers\home.php:26 
+ #0 [internal function]: HomeController->index()
+#1 L:\xampp\htdocs\KisKit\system\core\Router.php(121): ReflectionMethod->invokeArgs(Object(HomeController), Array)
+#2 L:\xampp\htdocs\KisKit\system\core\Router.php(20): sanemethod\kiskit\system\core\Router->route(Object(sanemethod\kiskit\system\core\Request))
+#3 L:\xampp\htdocs\KisKit\index.php(41): sanemethod\kiskit\system\core\Router->__construct(Array)
+#4 {main}
+ERROR: Nope, nothing here.
+ L:\xampp\htdocs\KisKit\app\controllers\home.php:26 
+ #0 [internal function]: HomeController->index()
+#1 L:\xampp\htdocs\KisKit\system\core\Router.php(121): ReflectionMethod->invokeArgs(Object(HomeController), Array)
+#2 L:\xampp\htdocs\KisKit\system\core\Router.php(20): sanemethod\kiskit\system\core\Router->route(Object(sanemethod\kiskit\system\core\Request))
+#3 L:\xampp\htdocs\KisKit\index.php(41): sanemethod\kiskit\system\core\Router->__construct(Array)
+#4 {main}
+ERROR: 404 Not Found: L:/xampp/htdocs/KisKit/app/controllers/yada.php
+ L:\xampp\htdocs\KisKit\system\core\Router.php:79 
+ #0 L:\xampp\htdocs\KisKit\system\core\Router.php(20): sanemethod\kiskit\system\core\Router->route(Object(sanemethod\kiskit\system\core\Request))
+#1 L:\xampp\htdocs\KisKit\index.php(41): sanemethod\kiskit\system\core\Router->__construct(Array)
+#2 {main}
+ERROR: 404 Not Found: L:/xampp/htdocs/KisKit/app/controllers/yada.php
+ L:\xampp\htdocs\KisKit\system\core\Router.php:79 
+ #0 L:\xampp\htdocs\KisKit\system\core\Router.php(20): sanemethod\kiskit\system\core\Router->route(Object(sanemethod\kiskit\system\core\Request))
+#1 L:\xampp\htdocs\KisKit\index.php(41): sanemethod\kiskit\system\core\Router->__construct(Array)
+#2 {main}
+ERROR: 404 Not Found: L:/xampp/htdocs/KisKit/app/controllers/yada.php
+ L:\xampp\htdocs\KisKit\system\core\Router.php:79 
+ #0 L:\xampp\htdocs\KisKit\system\core\Router.php(20): sanemethod\kiskit\system\core\Router->route(Object(sanemethod\kiskit\system\core\Request))
+#1 L:\xampp\htdocs\KisKit\index.php(41): sanemethod\kiskit\system\core\Router->__construct(Array)
+#2 {main}
+ERROR: The called method is not public.
+ L:\xampp\htdocs\KisKit\system\core\Router.php:116 
+ #0 L:\xampp\htdocs\KisKit\system\core\Router.php(20): sanemethod\kiskit\system\core\Router->route(Object(sanemethod\kiskit\system\core\Request))
+#1 L:\xampp\htdocs\KisKit\index.php(41): sanemethod\kiskit\system\core\Router->__construct(Array)
+#2 {main}

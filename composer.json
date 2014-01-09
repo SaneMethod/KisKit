@@ -1,0 +1,24 @@
+{
+    "name":"sanemethod/kiskit",
+    "description":"Keep It Simple Kit - straightforward PHP web framework.",
+    "license":"MIT",
+    "authors":[
+        {
+            "name":"Christopher Keefer",
+            "homepage":"http://christopherkeefer.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.4.0",
+        "psr/log": "~1.0"
+    },
+    "suggest":{
+        "monolog/monolog": "A more comprehensive logger compatible with psr-3.",
+        "phpunit/phpunit": "PHP unit testing."
+    },
+    "autoload":{
+        "psr-4":{
+            "sanemethod\\kiskit\\":"./"
+        }
+    }
+}
