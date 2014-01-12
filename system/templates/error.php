@@ -10,7 +10,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Error <?php echo $code; ?></title>
+    <title><?php echo $headerDisplay; ?></title>
     <style type="text/css">
 
         ::selection{ background-color: #E13300; color: white; }
@@ -64,7 +64,7 @@
 </head>
 <body>
 <div id="container">
-    <h1><?php echo $header; ?></h1>
+    <h1><?php echo $headerDisplay; ?></h1>
     <?php echo $message; ?>
 </div>
 </body>

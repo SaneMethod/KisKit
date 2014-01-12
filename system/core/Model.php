@@ -40,8 +40,8 @@ class Model {
 
     function __construct()
     {
-        require(SERVER_ROOT . 'config/dbconfig.php');
-        if (isset($db) && isset($active_group)) $this->db = $db[$active_group];
+        $db = require(SERVER_ROOT . 'config/dbconfig.php');
+        if (isset($db) && DB_GROUP) $this->db = $db[DB_GROUP];
         if ($this->db === null)
         {
             $this->lastError = new Exception("Failed to retrieve database configuration.");

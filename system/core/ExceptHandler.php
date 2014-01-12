@@ -40,7 +40,7 @@ class ExceptHandler extends Controller implements LoggerInterface{
         E_STRICT => self::NOTICE,
         E_RECOVERABLE_ERROR => self::ERROR,
         E_DEPRECATED => self::NOTICE,
-        E_USER_DEPRECATED => self::NOTICE,
+        E_USER_DEPRECATED => self::NOTICE
     );
 
     public static $responseCodes = array(
@@ -75,30 +75,46 @@ class ExceptHandler extends Controller implements LoggerInterface{
     
     private static $fatalPHPErr = array(E_ERROR, E_PARSE, E_CORE_ERROR, E_COMPILE_ERROR, E_USER_ERROR);
 
-    function __construct(array $handlers = array())
+    /**
+     * Set handler levels from logconfig, overriding with any values set in options.
+     * Set exception, error and fatal error handlers to ensure we can log on these events.
+     * @param array $options Should conform to arrays seen in logconfig.php.
+     */
+    function __construct(array $options = array())
     {
-        $this->handlers = array_merge(array(
-            'stderr' => false,
-            'file' => self::INFO,
-            'html' => self::INFO,
-            'json' => false
-        ), $handlers);
+        $logConfig = require(SERVER_ROOT . 'config/logconfig.php');
+        $this->handlers = array_merge($logConfig[EXCEPT_HANDLER], $options);
 
         set_exception_handler(array($this, 'handleException'));
         set_error_handler(array($this, 'handleError'));
         register_shutdown_function(array($this, 'handleFatalError'));
     }
 
+    /**
+     * Handle an uncaught exception. Determine the level of the exception (translating from its php error
+     * code or HTML response code) and call log.
+     * @param Exception $e
+     */
     public function handleException(Exception $e)
     {
         $code = $e->getCode();
         $level = (isset(self::$phpErrMap[$code])) ? self::$phpErrMap[$code] :
             (isset(self::$responseCodes[$code])) ? $code : self::ERROR;
 
-        $this->log($level, $e->getMessage().PHP_EOL.' {file}:{line} '.PHP_EOL.' {trace}',
+        $this->log($level, $e->getMessage().PHP_EOL.' {file} {line} '.PHP_EOL.' {trace}',
             array('file'=>$e->getFile(), 'line'=>$e->getLine(), 'trace'=>$e->getTraceAsString()));
     }
 
+    /**
+     * Handle a non-fatal error if error_reporting is on and the PHP error code for this error is
+     * not below the error reporting threshold. Translate the php error code to a psr-3 log level and
+     * call log.
+     *
+     * @param int $code
+     * @param string $message
+     * @param string $file
+     * @param int $line
+     */
     public function handleError($code, $message, $file = '', $line = 0)
     {
         if (!(error_reporting() & $code)) {
@@ -110,7 +126,11 @@ class ExceptHandler extends Controller implements LoggerInterface{
         
         $this->log($level, $message, array('file'=>$file, 'line'=>$line));
     }
-    
+
+    /**
+     * Handle a fatal error. Get the last error and if the error type is in our fatal error array,
+     * get the error level (translating from the php error type), and call log.
+     */
     public function handleFatalError()
     {
         $e = error_get_last();
@@ -249,7 +269,7 @@ class ExceptHandler extends Controller implements LoggerInterface{
         }
         if ($this->handlers['file'] && $this->handlers['file'] <= $level)
         {
-            $this->streamWrite(LOG_PATH . date('Y_m_d') . '.log', $response);
+            $this->streamWrite($this->handlers['logPath'] . date('Y_m_d') . '.log', $response);
         }
         if ($this->handlers['json'] && $this->handlers['json'] <= $level)
         {
@@ -257,7 +277,16 @@ class ExceptHandler extends Controller implements LoggerInterface{
         }
         else if ($this->handlers['html'] <= $level || in_array($level, self::$responseCodes))
         {
-            $this->HTMLWrite($response);
+            if ($this->handlers['webTrace'])
+            {
+                $this->HTMLWrite($response);
+            }
+            else
+            {
+                $simpleResponse = $this->response($level, preg_replace('(\n|\r|\r\n)', '', $message),
+                    array_merge($context, array('file'=>'', 'line'=>'', 'trace'=>'')));
+                $this->HTMLWrite($simpleResponse);
+            }
         }
     }
 
@@ -300,7 +329,7 @@ class ExceptHandler extends Controller implements LoggerInterface{
         $response['code'] = (isset(self::$phpErrMap[$status])) ? self::$levels[self::$phpErrMap[$status]] :
             (isset(self::$levels[$status])) ? self::$levels[$status] : self::$levels[self::ERROR];
 
-        if (isset($message)) $response['message'] = $this->interpolateErrorMessage($message, $context);
+        if ($message) $response['message'] = $this->interpolateErrorMessage($message, $context);
         if (!static::$timezone) static::$timezone = new DateTimeZone(date_default_timezone_get() ?: 'UTC');
         $response['datetime'] = DateTime::createFromFormat('U.u', sprintf('%.6F', microtime(true)),
             static::$timezone)->setTimezone(static::$timezone);
@@ -336,9 +365,11 @@ class ExceptHandler extends Controller implements LoggerInterface{
     private function HTMLWrite($response)
     {
         header($response['header']);
+        $response['headerDisplay'] = substr($response['header'], 9); // Omit HTTP/1.1
         $response['message'] = preg_replace('(\n|\r|\r\n)', '<br />', $response['message']);
+
         $response['message'] = '<code>'.$response['code'].': '.$response['message'].'</code>';
-        $this->view(LOG_TEMPLATE, $response);
+        $this->view($this->handlers['logTemplate'], $response);
     }
 
     /**
@@ -351,6 +382,13 @@ class ExceptHandler extends Controller implements LoggerInterface{
         $this->json($response);
     }
 
+    /**
+     * Write the error to a stream (stderr, file, etc).
+     *
+     * @param string $url
+     * @param array $response
+     * @throws \UnexpectedValueException
+     */
     private function streamWrite($url, $response)
     {
         $stream = fopen($url, 'a');
@@ -358,7 +396,8 @@ class ExceptHandler extends Controller implements LoggerInterface{
         {
             throw new \UnexpectedValueException(sprintf('The stream or file "%s" could not be opened.', $url));
         }
-        fwrite($stream, $response['code'].': '.$response['message'].PHP_EOL);
+        fwrite($stream, '['.$response['datetime']->format('Y-m-d H:i:s').'] '.
+            $response['code'].': '.$response['message'].PHP_EOL);
         fclose($stream);
     }
 }

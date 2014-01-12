@@ -4,4 +4,9 @@
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^ index.php [L]
+
+    # Alter as necessary to coincide with the names you've given to the config and system directories
+    RewriteRule ^(config|system)(/.*|)$ - [NC,F]
 </IfModule>
+
+Options -Indexes

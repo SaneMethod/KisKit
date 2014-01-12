@@ -28,7 +28,7 @@ require_once(SERVER_ROOT . SYS_DIR . 'core/controller.php');
 require_once(SERVER_ROOT . SYS_DIR . 'core/model.php');
 
 // Include composer-generated autoloader and PSR-3 conforming exceptHandler, if available
-if ((include(SERVER_ROOT . 'vendor/autoload.php')) && USE_EXCEPT_HANDLER)
+if ((include(SERVER_ROOT . 'vendor/autoload.php')) && EXCEPT_HANDLER)
 {
     $logger = new sanemethod\kiskit\system\core\ExceptHandler();
 }

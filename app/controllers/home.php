@@ -23,7 +23,7 @@ class HomeController extends Controller {
         //$this->logger->log(ExceptHandler::ALERT, 'Stick {that} in your {pipe} and {smoke} it!',
         //    array('that'=>'blarney', 'pipe'=>'tube', 'smoke'=>'banana'));
 
-        //throw new Exception('Nope, nothing here.', 404);
+        //throw new Exception('Coffee required.', 418);
 
         $this->view('index', ['interests'=>$interests->select(),
             'inviteCode'=>$invite->selectOne(['where'=>['user_id' => 0]])]);
