@@ -5,7 +5,7 @@
     "authors":[
         {
             "name":"Christopher Keefer",
-            "homepage":"http://christopherkeefer.com"
+            "homepage":"http://kiskit.sanemethod.com"
         }
     ],
     "require": {
@@ -14,7 +14,13 @@
     },
     "suggest":{
         "monolog/monolog": "A more comprehensive logger compatible with psr-3.",
-        "phpunit/phpunit": "PHP unit testing."
+        "phpunit/phpunit": "PHP unit testing.",
+        "doctrine/common": "Common base for the Doctrine project.",
+        "doctrine/dbal": "Doctrine database abstraction layer - similar API to PDO, larger feature set.",        
+        "doctrine/orm": "Object Relation Mapper, for those who want to abstract SQL away.",
+        "symfony/event-dispatcher": "Events (medaitor pattern) for PHP.",
+        "swiftmailer/swiftmailer": "Feature-rich mailer.",
+        "kriswallsmith/assetic": "Asset management framework."
     },
     "autoload":{
         "psr-4":{

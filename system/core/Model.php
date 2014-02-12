@@ -1,6 +1,7 @@
 <?php
 /**
- * Copyright (c) Christopher Keefer, 2013. All Rights Reserved.
+ * Copyright (c) Christopher Keefer, 2014. See LICENSE distributed with this software
+ * for full license terms and conditions.
  *
  * Defines some basic behaviours for all table models, such as selecting, updating and deleting rows.
  */
@@ -157,15 +158,6 @@ class Model {
     function selectOne($options = array()){
         $options = array_merge($options, array('fetchOne' => true));
         return $this->select($options);
-    }
-
-    /**
-     * Alias for Model::select() that selects and returns all rows from the table.
-     *
-     * @see Model::select
-     */
-    function selectAll(){
-        return $this->select();
     }
 
     /**

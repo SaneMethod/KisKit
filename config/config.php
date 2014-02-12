@@ -1,6 +1,7 @@
 <?php
 /**
- * Copyright (c) Christopher Keefer, 2013. All Rights Reserved.
+ * Copyright (c) Christopher Keefer, 2014. See LICENSE distributed with this software
+ * for full license terms and conditions.
  *
  * This file should be customized to represent the appropriate details of your setup for all elements, except
  * database configuration (see dbconfig.php) and log configuration (see logconfig.php).

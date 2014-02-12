@@ -1,7 +1,7 @@
 <?php
 /**
- * Copyright (c) 2013 Art & Logic, Inc. All Rights Reserved.
- * $Id$
+ * Copyright (c) 2014 Christopher Keefer. See LICENSE distributed with this software
+ * for full license terms and conditions.
  *
  * Allows us to create and send emails via mail or sendmail.
  */

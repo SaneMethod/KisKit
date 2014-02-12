@@ -41,7 +41,7 @@
         }
 
         code {
-            font-family: Consolas, Monaco, Courier New, Courier, monospace;
+            font-family: Consolas, Courier New, monospace;
             font-size: 12px;
             background-color: #f9f9f9;
             border: 1px solid #D0D0D0;
@@ -54,7 +54,7 @@
         #container {
             margin: 10px;
             border: 1px solid #D0D0D0;
-            -webkit-box-shadow: 0 0 8px #D0D0D0;
+            box-shadow: 0 0 8px #D0D0D0;
         }
 
         p {

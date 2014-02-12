@@ -1,6 +1,7 @@
 <?php
 /**
- * Copyright (c) Christopher Keefer 2013, All Rights Reserved.
+ * Copyright (c) Christopher Keefer 2014. See LICENSE distributed with this software
+ * for full license terms and conditions.
  *
  * KisKit offers a simple, stripped-down MVC to offer some organization for projects that
  * don't need the features (and size or complexity) offered by more complete frameworks like

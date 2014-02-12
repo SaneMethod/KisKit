@@ -1,6 +1,7 @@
 <?php
 /**
- * Copyright (c) Christopher Keefer, 2013. All Rights Reserved.
+ * Copyright (c) Christopher Keefer, 2014. See LICENSE distributed with this software
+ * for full license terms and conditions.
  *
  * Base Controller class, from which all other controllers should extend. Contains functions for requesting
  * models and views.

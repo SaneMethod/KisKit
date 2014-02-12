@@ -1,5 +1,8 @@
 <?php
 /**
+ * Copyright (c) Christopher Keefer, 2014. See LICENSE distributed with this software
+ * for full license terms and conditions.
+ *
  * File Helper - offers common solutions to uploading, downloading a file, determining file mime type, reading
  * a file's contents.
  */

@@ -108,7 +108,7 @@ class Request{
             }
             else if ($param->isDefaultValueAvailable())
             {
-                // If no argument for this parameter is provided in the url, and
+                // If no argument for this parameter is provided in the url, use the default value if available
                 $this->params[] = $param->getDefaultValue();
             }
         }

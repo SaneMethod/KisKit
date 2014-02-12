@@ -1,7 +1,8 @@
 #!/usr/bin/env php
 <?php
 /**
- * Copyright (c) Christopher Keefer, 2013. All Rights Reserved.
+ * Copyright (c) Christopher Keefer, 2014. See LICENSE distributed with this software
+ * for full license terms and conditions.
  *
  * Run to automate install of dependencies for your project (as defined in composer.json) using
  * Composer ( http://getcomposer.org ).
@@ -32,21 +33,29 @@ class Setup extends Controller{
     const USAGE = <<<"EOT"
 [ -- Usage -- ]
 
-\t--skip-composer\t Skip downloading and running composer.
+--skip-composer           Skip downloading and running composer.
 
-\t--skip-composer-download\t Skip downloading composer - assumes we already have a copy of composer in the expected directory (APP_DIR/lib/vendor/composer/composer.phar).
+--skip-composer-download  Skip downloading composer - assumes we already have a
+                          copy of composer in the expected directory
+                          (APP_DIR/lib/vendor/composer/composer.phar).
 
-\t--force-composer-download\t Force us to download composer even if we already have a copy of composer.phar.
+--force-composer-download Force us to download composer even if we already
+                          have a copy of composer.phar.
 
-\t--force-package-update\t Force composer to use our requires json, not composer.lock.
+--retain-package-lock     Force use of composer.lock, not composer.json.
 
-\t--skip-dbinit\t Skip initializing the database.
+--skip-dbinit             Skip initializing the database.
 
-\t--force-db-reinit\t Force all createTable functions to run again, even if the tables already exist in the db. Useful if you add a DROP table statement at the beginning of your createTable SQL.
+--force-db-reinit         Force all createTable functions to run again, even if
+                          the tables already exist in the db. Useful if you add
+                          a DROP table statement at the beginning of your
+                          createTable SQL.
 
-\t--requires=path/to/file\t Indicate the absolute path to the json file indicating package requirements (default is config/requires.json).
+--requires=path/to/file   Indicate the absolute path to the json file
+                          indicating package requirements
+                          (default is config/requires.json).
 
-\t--help\t Display params and exit.
+--help                    Display params and exit.
 EOT;
 
     /**
@@ -266,7 +275,7 @@ EOT;
         {
             mkdir(COMPOSER_INSTALL_DIR, 0755, true);
         }
-        // If we already have a copy of composer, skip download it unless --force-composer-download is specified
+        // If we already have a copy of composer, skip download unless --force-composer-download is specified
         if (is_file(COMPOSER_INSTALL_DIR."composer.phar") && !in_array('--force-composer-download', $argv)){
             echo "-- Composer is Available --".PHP_EOL;
             return true;
@@ -295,10 +304,10 @@ EOT;
     }
 
     /**
-     * Run composer. Get our requires file, and copy it to the appropriate directory for composer to
+     * Run composer. Get our composer.json file, and copy it to the appropriate directory for composer to
      * find and use it, then call composer. Unlink the copy of the requires file when finished, and
-     * output the returned text from the call to composer. If --force-package-update is specified,
-     * delete composer.lock to force composer to use composer.json instead and generate a new .lock file.
+     * output the returned text from the call to composer. If --retain-package-lock is not specified,
+     * delete composer.lock to force composer to use composer.json and generate a new .lock file.
      *
      * @param $argv
      */
@@ -311,7 +320,7 @@ EOT;
         }
         echo "-- Installing Required Packages via Composer --".PHP_EOL;
         copy($requiresFile, VENDOR_DIR . "composer.json");
-        if (in_array('--force-package-update', $argv))
+        if (!in_array('--retain-package-lock', $argv))
         {
             @unlink(SERVER_ROOT . "composer.lock");
         }
@@ -335,8 +344,10 @@ EOT;
 
         foreach($models as $modelFile){
             $modelFile = explode('.', $modelFile)[0];
-            echo "Initializing Model {$modelFile}".PHP_EOL;
             $initModel = $this->model($modelFile);
+            // If $initModel is false, this file doesn't contain a Model - continue loop
+            if ($initModel === false) continue;
+            echo "Initializing Model {$modelFile}".PHP_EOL;
             // If lastError is populated, something went wrong with the db connection
             if ($initModel->lastError !== null)
             {
