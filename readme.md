@@ -53,9 +53,6 @@ a php package manager, and [PHP-FIG](http://php-fig.org) for details on PSRs.
 KisKit Setup
 ============
 
-KisKit is a straightforward PHP framework. The following are the necessary step to get it up and
-running.
-
 For setup beyond the immediate scope of KisKit (such as Apache/nginx setup, SQL server setup, etc.), please see
 the specific documentation for the software in question.
 
