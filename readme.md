@@ -16,40 +16,40 @@ a php package manager, and [PHP-FIG](http://php-fig.org) for details on PSRs.
 
 ###Contents
 
-#####[Setup](#setup)
-* [One-Time Setup Steps](#setup-onetime)
-* [Recurring Setup Steps](#setup-recurring)
+#####[Setup](#kiskit-setup)
+* [One-Time Setup Steps](#one-time-setup-steps)
+* [Recurring Setup Steps](#recurring-setup-steps)
 
-#####[Configuration Details](#config)
+#####[Configuration Details](#configuring-kiskit)
 * [Constants](#constants)
-* [Config Files](#configFiles)
+* [Config Files](#config-files)
 
-#####[Routing](#routing)
-* [Parameters](#routingParams)
-* [Request Object](#routingRequest)
-* [RESTful](#routingRestful)
+#####[Routing](#routing-1)
+* [Parameters](#routing-parameters)
+* [Requests](#requests)
+* [RESTful](#restful)
 
-#####[Controllers](#controller)
-* [Views](#controllerView)
-* [JSON](#controllerJson)
-* [File](#controllerFile)
-* [Upload](#controllerUpload)
-* [Model](#controllerModel)
-* [Helper](#controllerHelper)
-* [Lib](#controllerLib)
-* [Load](#controllerLoad)
+#####[Controllers](#controllers-1)
+* [Views](#view)
+* [JSON](#json)
+* [File](#file)
+* [Upload](#upload)
+* [Model](#model)
+* [Helper](#helper)
+* [Lib](#lib)
+* [Load](#load)
 
-#####[Databases, PDO and Models](#models)
-* [Using Models](#modelsUsing)
-* [Model Properties](#modelsProperties)
-* [Model Functions](#modelsFunctions)
-* [Model CreateTable](#modelsCreate)
+#####[Databases, PDO and Models](#databases-pdo-and-models-1)
+* [Using Models](#using-models)
+* [Model Properties](#model-properties)
+* [Model Functions](#model-functions)
+* [Model CreateTable](#model-createtable)
 
-#####[Exceptions and Logging](#logging)
-* [Logging Exceptions](#loggingExceptions)
-* [Logging Object](#loggingLogger)
+#####[Exceptions and Logging](#exceptions-and-logging-1)
+* [Configuration](#configuration)
+* [Logging Exceptions](#exceptions)
+* [Logging Object](#logging-object)
 
-<a id="setup" />
 KisKit Setup
 ============
 
@@ -59,7 +59,6 @@ running.
 For setup beyond the immediate scope of KisKit (such as Apache/nginx setup, SQL server setup, etc.), please see
 the specific documentation for the software in question.
 
-<a id="setup-onetime" />
 One-Time Setup Steps
 --------------------
 
@@ -92,7 +91,6 @@ create your tables when running setup.
 
 KisKit is now prepared for use.
 
-<a id="setup-recurring" />
 Recurring Setup Steps
 ---------------------
 
@@ -102,11 +100,9 @@ Recurring Setup Steps
 run `php -f setup.php` again. Having the models contain the statements for table setup can hasten later setup
 on a remote server, and offers insight into the table structure for developers.
 
-<a id="config" />
 Configuring Kiskit
 ==================
 
-<a id="constants" />
 Constants
 ---------
 In addition to any you define in `config.php`, the following constants will be present and available to all
@@ -139,7 +135,6 @@ PDO and KisKit models. Default value is 'development'.
 exceptions. Can be left blank (empty string, null, etc.) if you're going to handle logging/exceptions via some other
 method. Default value is 'development'.
 
-<a id="configFiles" />
 Config Files
 ------------
 
@@ -185,7 +180,6 @@ Example:
 )
 ```
 
-<a id="routing" />
 Routing
 =======
 The initial point of entry from a request will always be index.php at the root. Within index, the autoloader will
@@ -204,7 +198,8 @@ true, dothis will handle the request. If the former is false, an exception (with
 latter, an exception (with code 403) is thrown. ExceptHandler will understand these as HTTP exceptions and
 treat them accordingly, sending the proper headers and a customizable error page (see [Logging](#logging) for
 more details).
-<a id="routingParams" />
+
+### Routing Parameters
 Parameters can be passed into a function via either the uri or the query string when performing any request.
 
 For example, if we have a function defined as:
@@ -243,7 +238,6 @@ the $_GET or $_POST, or $this->request->get/post.
 On POST requests, you will need to access `$this->request->post` or $_POST in order to get variables passed via
 POST. Parameters passed via the uri will still be set appropriately.
 
-<a id="routingRequest" />
 ###Requests
 
 For each request, a new Request object is created. The request object contains the request method (ie. GET, POST,
@@ -264,7 +258,6 @@ on the function called, if any.
 * `get` => A direct reference to $_GET.
 * `post` => A direct reference to $_POST.
 
-<a id="routingRestful" />
 ###RESTful
 
 As a convenience to those making a RESTful API, you can specify in the function name what request method it should
@@ -283,7 +276,6 @@ found, it will call the un-postfixed function. Thus, you can specify handlers fo
 a default handler for all others, with the name and the postfix clearly representing their relationship and the
 conditions under which they'll be called.
 
-<a id="controller" />
 Controllers
 ===========
 
@@ -315,7 +307,6 @@ EXCEPT_HANDLER is set, `$this->logger` (an [ExceptHandler](#loggingLogger) objec
 ###Functions
 All Controllers have the following functions:
 
-<a id="controllerView" />
 ####View
 `$this->view()` => Display a php view. These views can be composited.
 For Example:
@@ -342,7 +333,6 @@ $this->view('content', ['firstvar'=>'banana', 'secondvar'=>'pie']);
 
 Inside the view file, you will now have access to $firstvar and $secondvar.
 
-<a id="controllerJson" />
 ####Json
 `$this->json()` => Return json to the client. This sends the appropriate headers (and thus must not be called if
 any other output has previously occurred), and outputs the results of [json_encode](http://ca1.php.net/json_encode).
@@ -361,7 +351,6 @@ Returns:
 {"first":1, "second":2, "third":3}
 ```
 
-<a id="controllerFile" />
 ####File
 `$this->file()` => Offers a file for download, as specified by the arguments to the function call.
 
@@ -371,7 +360,6 @@ Example:
 $this->file('path/To/File.txt', 'newFileName.txt');
 ```
 
-<a id="controllerUpload" />
 ####Upload
 `$this->upload()` => Handle a (potentially chunked) file upload. Returns JSON representation of file details and
 write success. If chunked upload, also returns the content range written.
@@ -388,7 +376,6 @@ Returns:
 {"file":{"size":123560, "name":"newFileName.txt", "path":"path/to/save/to", type:"mimeType"}, "success":true}
 ```
 
-<a id="controllerModel" />
 ####Model
 `$this->model()` => Load the specified model. Returns a new [model object](#modelsOb). See [Models](#models) for
 more details.
@@ -400,7 +387,6 @@ $users = $this->model('users');
 $firstUser = $users->selectOne(['where'=>['user_id' => 1]]);
 ```
 
-<a id="controllerHelper" />
 ####Helper
 `$this->helper()` => Load a helper - a class that provide some particular functionality (like email or file
 handling). Returns a new object of that class. As helpers can be a varied lot, see the individual helper to
@@ -414,7 +400,6 @@ $email->from('test@test.com')->to(["first@test.com", "second@test.com"])
             ->subject('Test Email')->message("Message String")->send();
 ```
 
-<a id="controllerLib" />
 ####Lib
 `$this->lib()` => Load a third-party library (installed under the vendor directory, PSR-0 or PSR-4 compliant or,
 with the proper configuration in the Composer autoload, otherwise). Returns a new object of the specified class.
@@ -434,7 +419,6 @@ Is just an alias for:
 $monologJsonFormatter = new Monolog\Formatter\JsonFormatter(arg1, arg2);
 ```
 
-<a id="controllerLoad" />
 ####Load
 `$this->load()` => Load an arbitrary file, and instantiate a class found therein. This method underlies the
 other class loading methods, and allows you to specify certain options if you want to avoid using the defaults
@@ -448,7 +432,6 @@ $this->load(SERVER_ROOT.APP_DIR.'models/users');
 
 Will load `users.php` from the specified directory and attempt to instantiate and return an object of class `Users`.
 
-<a id="models" />
 Databases, PDO and Models
 =========================
 All of your models must live in the APP_DIR/models directory by default, and should extend system/core/Model.
@@ -465,7 +448,6 @@ Note the 'Model' postfix - all model classes should end in Model (in the same wa
 should end in Controller) by default. You can use [Load](#controllerLoad) to instantiate your model class and
 avoid this, if you prefer.
 
-<a id="modelsUsing" />
 ####Using Models
 KisKit models provide a layer of abstraction over PHP PDO, which itself is a data-access abstraction layer for
 various databases. It is not meant to be comprehensive - in some cases, you will want to create functions
@@ -486,7 +468,6 @@ function __construct()
 This database handle (dbh) should then be used when manually preparing PDO SQL statements. See
 [PDO](http://www.php.net/manual/en/intro.pdo.php) for more details.
 
-<a id="modelsProperties" />
 #####Model properties
 Every model possess the following properties:
 
@@ -503,7 +484,6 @@ class UserModel extends Model{
 update operations are allowed on. Any fields included in a insert or update operation that aren't in the
 white list will be silently filtered out.
 
-<a id="modelsFunctions" />
 #####Model functions
 Every model possesses the following db abstractions for selecting, inserting, updating and deleting rows.
 
@@ -565,7 +545,6 @@ Example:
 $this->delete(['id'=>5]);
 ```
 
-<a id="modelsCreate" />
 #####Model CreateTable
 Definining a function named `createTable()` on a model will cause that function to be run during the execution
 of `setup.php`. This is an excellent way to have tables automatically generated for you when running - the code
@@ -591,7 +570,6 @@ function createTable()
 }
 ```
 
-<a id="logging" />
 Exceptions and Logging
 ======================
 
@@ -622,7 +600,6 @@ Webtrace:
 * true == display full details of errors in html error page, including stack trace.
 * false == display only simple error messages.
 
-<a id="loggingExceptions" />
 ####Exceptions
 So long as `EXCEPT_HANDLER` is set, all exceptions will be picked up on (but not caught) by ExceptHandler
 (accessible from Controllers as $this->logger). This allows us to log exceptions, fatal or otherwise, to
@@ -641,7 +618,6 @@ Example:
 throw new Exception('Access Denied', 403);
 ```
 
-<a id="loggingLogger" />
 ####Logging Object
 You can also without throwing exceptions from any controller, via `$this->logger`. For any log, you can specify the
 log level, log message, and an optional array which will be interpolated with the log message.
