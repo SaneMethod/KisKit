@@ -1,0 +1,739 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Kiskit by SaneMethod</title>
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="javascripts/respond.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <!--[if lt IE 8]>
+    <link rel="stylesheet" href="stylesheets/ie.css">
+    <![endif]-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+  </head>
+  <body>
+      <div id="header">
+        <nav>
+          <li class="fork"><a href="https://github.com/SaneMethod/KisKit">View On GitHub</a></li>
+          <li class="downloads"><a href="https://github.com/SaneMethod/KisKit/zipball/master">ZIP</a></li>
+          <li class="downloads"><a href="https://github.com/SaneMethod/KisKit/tarball/master">TAR</a></li>
+          <li class="title">DOWNLOADS</li>
+        </nav>
+      </div><!-- end header -->
+
+    <div class="wrapper">
+
+      <section>
+        <div id="title">
+          <h1>Kiskit</h1>
+          <p>Straightforward PHP framework particularly suited for REST APIs.</p>
+          <hr>
+          <span class="credits left">Project maintained by <a href="https://github.com/SaneMethod">SaneMethod</a></span>
+          <span class="credits right">Hosted on GitHub Pages &mdash; Theme by <a href="https://twitter.com/michigangraham">mattgraham</a></span>
+        </div>
+
+        <h1>
+<a name="kiskit" class="anchor" href="#kiskit"><span class="octicon octicon-link"></span></a>KisKit</h1>
+
+<p>(Keep It Simple Kit)</p>
+
+<p>KisKit is a featureful but straightforward PHP web framework. Particularly suited to use with modern, REST-oriented
+client-side frameworks, but flexible enough to be used however you see fit.</p>
+
+<p>Kiskit offers MVC style project organization, a simple database abstraction layer, quality logging (PSR-3 compliant)
+and compatibility/extensibility (framework is PSR-4 compliant, and includes easy setup and use of
+<a href="http://getcomposer.org">composer</a>), making adding libraries like monolog, SwiftMailer or Doctrine
+(or hundreds of others) a simple and familiar process.</p>
+
+<p>See <a href="http://getcomposer.org">Composer</a> and <a href="https://packagist.org">Packagist</a> for more details on using composer as
+a php package manager, and <a href="http://php-fig.org">PHP-FIG</a> for details on PSRs.</p>
+
+<h3>
+<a name="contents" class="anchor" href="#contents"><span class="octicon octicon-link"></span></a>Contents</h3>
+
+<h5>
+<a name="setup" class="anchor" href="#setup"><span class="octicon octicon-link"></span></a><a href="#kiskit-setup">Setup</a>
+</h5>
+
+<ul>
+<li><a href="#one-time-setup-steps">One-Time Setup Steps</a></li>
+<li><a href="#recurring-setup-steps">Recurring Setup Steps</a></li>
+</ul><h5>
+<a name="configuration-details" class="anchor" href="#configuration-details"><span class="octicon octicon-link"></span></a><a href="#configuring-kiskit">Configuration Details</a>
+</h5>
+
+<ul>
+<li><a href="#constants">Constants</a></li>
+<li><a href="#config-files">Config Files</a></li>
+</ul><h5>
+<a name="routing" class="anchor" href="#routing"><span class="octicon octicon-link"></span></a><a href="#routing-1">Routing</a>
+</h5>
+
+<ul>
+<li><a href="#routing-parameters">Parameters</a></li>
+<li><a href="#requests">Requests</a></li>
+<li><a href="#restful">RESTful</a></li>
+</ul><h5>
+<a name="controllers" class="anchor" href="#controllers"><span class="octicon octicon-link"></span></a><a href="#controllers-1">Controllers</a>
+</h5>
+
+<ul>
+<li><a href="#view">Views</a></li>
+<li><a href="#json">JSON</a></li>
+<li><a href="#file">File</a></li>
+<li><a href="#upload">Upload</a></li>
+<li><a href="#model">Model</a></li>
+<li><a href="#helper">Helper</a></li>
+<li><a href="#lib">Lib</a></li>
+<li><a href="#load">Load</a></li>
+</ul><h5>
+<a name="databases-pdo-and-models" class="anchor" href="#databases-pdo-and-models"><span class="octicon octicon-link"></span></a><a href="#databases-pdo-and-models-1">Databases, PDO and Models</a>
+</h5>
+
+<ul>
+<li><a href="#using-models">Using Models</a></li>
+<li><a href="#model-properties">Model Properties</a></li>
+<li><a href="#model-functions">Model Functions</a></li>
+<li><a href="#model-createtable">Model CreateTable</a></li>
+</ul><h5>
+<a name="exceptions-and-logging" class="anchor" href="#exceptions-and-logging"><span class="octicon octicon-link"></span></a><a href="#exceptions-and-logging-1">Exceptions and Logging</a>
+</h5>
+
+<ul>
+<li><a href="#configuration">Configuration</a></li>
+<li><a href="#exceptions">Logging Exceptions</a></li>
+<li><a href="#logging-object">Logging Object</a></li>
+</ul><h1>
+<a name="kiskit-setup" class="anchor" href="#kiskit-setup"><span class="octicon octicon-link"></span></a>KisKit Setup</h1>
+
+<p>KisKit is a straightforward PHP framework. The following are the necessary step to get it up and
+running.</p>
+
+<p>For setup beyond the immediate scope of KisKit (such as Apache/nginx setup, SQL server setup, etc.), please see
+the specific documentation for the software in question.</p>
+
+<h2>
+<a name="one-time-setup-steps" class="anchor" href="#one-time-setup-steps"><span class="octicon octicon-link"></span></a>One-Time Setup Steps</h2>
+
+<ol>
+<li>
+<p>Alter <code>config.php</code>, <code>logconfig.php</code> and <code>dbconfig.php</code> to reflect your configuration - all can be found in the
+<code>config</code> directory.</p>
+
+<ul>
+<li>See sections <a href="#constants">Constants</a> and <a href="#config-files">Config Files</a> below to get more details on what each of
+these configuration files contain and do.</li>
+<li>KisKit offers a simple abstraction layer for database interaction that sit atop PHP's
+<a href="http://www.php.net/manual/en/intro.pdo.php">PDO</a> database interface, and is thus compatible with any db solution
+<a href="http://www.php.net/manual/en/pdo.drivers.php">supported by PDO</a>.
+
+<ul>
+<li>For the impatient, this includes MSSQL/SQL Azure, MySQL, SQLite and PostgreSQL.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Alter <code>composer.json</code> in the root directory to indicate your package requirements. This file follows
+the format of a <a href="http://getcomposer.org/doc/04-schema.md">composer.json file</a>. A sample composer.json file
+is included in the package and can function as a customizable base.</p></li>
+<li><p>Define the <code>createTable</code> functions in any models you know you need at this point - these will be run in
+step 4, using the database configuration details from step 1. You can skip this if you don't want to automatically
+create your tables when running setup.</p></li>
+<li>
+<p>In a terminal, change directory to the system/cli directory for your project (default is <code>system/cli</code>) and run
+<code>php -f setup.php</code>. If you wish to see the command line options for setup, type <code>php -f setup.php -- --help</code>.
+You may need to determine where php is installed for your system if its not on the PATH (ie. env/bin/php).
+This will check your php install and setup against requirements, download and install Composer,
+install the required packages defined in composer.json, and init any model tables you may have defined.
+You can rerun this setup at any time in order to install any packages you've added to requires.json, and to
+initialize tables for any models you've added.</p>
+
+<ul>
+<li>Note also that once you've run setup once, composer will be available in your APP_DIR/vendor/composer
+directory - you can run it via <code>php composer.phar</code>, which will give you a list of available commands.</li>
+</ul>
+</li>
+</ol><p>KisKit is now prepared for use.</p>
+
+<h2>
+<a name="recurring-setup-steps" class="anchor" href="#recurring-setup-steps"><span class="octicon octicon-link"></span></a>Recurring Setup Steps</h2>
+
+<ol>
+<li>Whenever you want to add a new package to the project, you'll want to make the appropriate changes to your
+<code>composer.json</code> file, and then either run <code>php -f setup.php</code> again, or run <code>php composer.phar</code> directly.</li>
+<li>If you create new models and want to use the createTable functions to generate the tables for you, simply
+run <code>php -f setup.php</code> again. Having the models contain the statements for table setup can hasten later setup
+on a remote server, and offers insight into the table structure for developers.</li>
+</ol><h1>
+<a name="configuring-kiskit" class="anchor" href="#configuring-kiskit"><span class="octicon octicon-link"></span></a>Configuring Kiskit</h1>
+
+<h2>
+<a name="constants" class="anchor" href="#constants"><span class="octicon octicon-link"></span></a>Constants</h2>
+
+<p>In addition to any you define in <code>config.php</code>, the following constants will be present and available to all
+controllers and views:</p>
+
+<p><strong>SERVER_ROOT</strong>: The base directory from which KisKit is executing. This is the same as the directory in which
+the root index.php file can be found. For example, <code>F:/usr/etc/apache2/htdocs/mysitedir/</code>. Gauranteed to use
+forward slashes (even on Windows), and to have a trailing slash.</p>
+
+<p><strong>BASE_URL</strong>: The base url for the request. For example, <code>http://mysite.com/</code>. The protocol will be set appropriately
+(either http or https), and a trailing slash is guaranteed. This will include <code>/index.php/</code> if index.php is not being
+rewritten out of the url (as is the default via the included .htaccess file).</p>
+
+<p><strong>APP_DIR</strong>: The base directory for your application (as opposed to the system files). This is 'app/'
+by default - notice the trailing slash, which should be included if you change this value.
+Your app directory must conform to the directory structure of the default app dir (you can add as many
+directories as you want, but at least controllers, models and views must exist.)</p>
+
+<p><strong>SYS_DIR</strong>: The directory where the KisKit system files will live, that your application relies on/extends from.
+This is 'system/' by default.</p>
+
+<p><strong>DEFAULT_CONTROLLER</strong>: When navigating to the root of your site, the named controller will be the one to handle
+the request, calling its <code>index()</code> function. Default is 'home'.</p>
+
+<p><strong>DB_GROUP</strong>: This indicates which database group from <code>dbconfig.php</code> should be used to interact with the db.
+Can be left blank if you're not going to use a database, or intend to interact with it via some method other than
+PDO and KisKit models. Default value is 'development'.</p>
+
+<p><strong>EXCEPT_HANDLER</strong>: Indicates which log settings group from <code>logconfig.php</code> should be used to handle logging and
+exceptions. Can be left blank (empty string, null, etc.) if you're going to handle logging/exceptions via some other
+method. Default value is 'development'.</p>
+
+<h2>
+<a name="config-files" class="anchor" href="#config-files"><span class="octicon octicon-link"></span></a>Config Files</h2>
+
+<p><strong>config.php</strong>: This file contains certain constants that define application directories and options, as noted in
+the <code>CONSTANTS</code> section.</p>
+
+<p><strong>dbconfig.php</strong>: This file contains a multidimensional array, each element of which is an array of database
+configuration options. Each array should be named according to the value you will set <code>DB_GROUP</code> to in <code>config.php</code>.</p>
+
+<p>See <a href="#databases-pdo-and-models-1">Databases, PDO and Models</a> for more details.</p>
+
+<p>Example:</p>
+
+<div class="highlight highlight-php"><pre><span class="s1">'development'</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span>
+    <span class="s1">'hostname'</span> <span class="o">=&gt;</span> <span class="s1">'127.0.0.1'</span><span class="p">,</span>
+    <span class="s1">'driver'</span> <span class="o">=&gt;</span> <span class="s1">'mysql'</span><span class="p">,</span>
+    <span class="c1">// Number to specify port, null to use default port</span>
+    <span class="s1">'port'</span> <span class="o">=&gt;</span> <span class="mi">3306</span><span class="p">,</span>
+    <span class="s1">'username'</span> <span class="o">=&gt;</span> <span class="s1">'dbuser'</span><span class="p">,</span>
+    <span class="s1">'password'</span> <span class="o">=&gt;</span> <span class="s1">'dbpass'</span><span class="p">,</span>
+    <span class="s1">'database'</span> <span class="o">=&gt;</span> <span class="s1">'dbname'</span>
+<span class="p">)</span>
+</pre></div>
+
+<p><strong>logconfig.php</strong>: Similar in structure to the dbconfig.php file, containing a multidimensional array, each element
+is an array of logging configuration options. Each array should be named according to the value you will set
+<code>EXCEPTION_HANDLER</code> to in <code>config.php</code>.</p>
+
+<p>See <a href="#exceptions-and-logging-1">Exceptions and Logging</a> for more details.</p>
+
+<p>Example:</p>
+
+<div class="highlight highlight-php"><pre><span class="s1">'development'</span> <span class="o">=&gt;</span> <span class="k">array</span><span class="p">(</span>
+    <span class="s1">'logPath'</span> <span class="o">=&gt;</span> <span class="nx">SERVER_ROOT</span> <span class="o">.</span> <span class="nx">APP_DIR</span> <span class="o">.</span> <span class="s1">'logs/'</span><span class="p">,</span>
+    <span class="s1">'logTemplate'</span> <span class="o">=&gt;</span> <span class="s1">'error'</span><span class="p">,</span>
+    <span class="s1">'webTrace'</span> <span class="o">=&gt;</span> <span class="k">true</span><span class="p">,</span>
+    <span class="s1">'stderr'</span> <span class="o">=&gt;</span> <span class="k">false</span><span class="p">,</span>
+    <span class="s1">'file'</span> <span class="o">=&gt;</span> <span class="mi">100</span><span class="p">,</span>
+    <span class="s1">'html'</span> <span class="o">=&gt;</span> <span class="mi">100</span><span class="p">,</span>
+    <span class="s1">'json'</span> <span class="o">=&gt;</span> <span class="k">false</span>
+<span class="p">)</span>
+</pre></div>
+
+<h1>
+<a name="routing-1" class="anchor" href="#routing-1"><span class="octicon octicon-link"></span></a>Routing</h1>
+
+<p>The initial point of entry from a request will always be index.php at the root. Within index, the autoloader will
+be loaded (to handle PSR-0 and PSR-4 conforming libs/packages), logging will be instantiated (if using
+EXCEPT_HANDLER), and routing will begin.</p>
+
+<p>The first section of the uri after the base is always the controller, and the second is always a public
+function within that controller.</p>
+
+<p>For example:
+<code>http://mysite.com/home/dothis/</code></p>
+
+<p>Will instantiate the HomeController class in home.php within the app/controllers directory.
+It will then check whether there's a method named 'dothis' in home, and whether dothis is public. If both are
+true, dothis will handle the request. If the former is false, an exception (with code 404) is thrown. If the
+latter, an exception (with code 403) is thrown. ExceptHandler will understand these as HTTP exceptions and
+treat them accordingly, sending the proper headers and a customizable error page (see
+<a href="#exceptions-and-logging-1">Logging</a> for more details).</p>
+
+<h3>
+<a name="routing-parameters" class="anchor" href="#routing-parameters"><span class="octicon octicon-link"></span></a>Routing Parameters</h3>
+
+<p>Parameters can be passed into a function via either the uri or the query string when performing any request.</p>
+
+<p>For example, if we have a function defined as:</p>
+
+<div class="highlight highlight-php"><pre><span class="k">public</span> <span class="k">function</span> <span class="nf">dothis</span><span class="p">(</span><span class="nx">param1</span><span class="p">,</span> <span class="nx">param2</span><span class="p">)</span>
+</pre></div>
+
+<p>And we make the call
+<code>http://mysite.com/home/dothis/cheese/pizza</code></p>
+
+<p>Then param1 in dothis will be set to 'cheese', and param2 will be set to 'pizza'.</p>
+
+<p>We can also specify by name in any order if we use the query string.</p>
+
+<p><code>http://mysite.com/home/dothis?param2=pizza&amp;param1=cheese</code></p>
+
+<p>Will still result in param1 being 'cheese' and param2 being 'pizza' inside of the function.</p>
+
+<p>We can also mix and match uri params and query string params, and named params in the query string will still
+get assigned to their proper variable.</p>
+
+<p><code>http://mysite.com/home/dothis/pizza?param1=cheese</code></p>
+
+<p>Will still result in param1 being assigned 'cheese' and our leftover parameter will be assigned to param2, thus
+'pizza'. If more parameters exist in the uri then are defined on the controller, all named parameters are assigned
+first, and then any leftover parameters are assigned in order to the remainder. In order to access all parameters,
+you can directly access the parameter array via <code>$this-&gt;request-&gt;params</code> in any controller function.</p>
+
+<p>You can set defaults on any function parameter; if there are less parameters set via the uri and/or query string
+than exist on the controller, the default values for the leftover parameters will prevail.</p>
+
+<p>You can also directly access the $<em>GET or $</em>POST arrays from <code>$this-&gt;request-&gt;get</code> and <code>$this-&gt;request-&gt;post</code>
+respectively. These are merely convenience references that point directly to the $<em>GET and $</em>POST arrays - any
+changes to them will also change the $<em>GET and $</em>POST arrays. Changes to the params array will not effect either
+the $<em>GET or $</em>POST, or $this-&gt;request-&gt;get/post.</p>
+
+<p>On POST requests, you will need to access <code>$this-&gt;request-&gt;post</code> or $_POST in order to get variables passed via
+POST. Parameters passed via the uri will still be set appropriately.</p>
+
+<h3>
+<a name="requests" class="anchor" href="#requests"><span class="octicon octicon-link"></span></a>Requests</h3>
+
+<p>For each request, a new Request object is created. The request object contains the request method (ie. GET, POST,
+etc.), the target controller name, target function name, a merge array of parameters passed via uri sections and
+via GET query string, and references to $<em>GET and $</em>POST.</p>
+
+<p>The request object is always available to the called controller function via <code>$this-&gt;request</code>.</p>
+
+<p>The request object has the following accessible properties:</p>
+
+<ul>
+<li>
+<code>verb</code> =&gt; The request method (GET, POST, PUT, OPTIONS, DELETE)</li>
+<li>
+<code>target</code> =&gt; The target controller file name, minus any extension.</li>
+<li>
+<code>controller</code> =&gt; The target controller class name. Note that controllers in KisKit have a postfix of 'Controller' -
+so, if you have a home.php containing your home controller, the class name should be <code>HomeController</code>. You can
+change or remove this prefix by setting 'conPostFix'=&gt;false in the array passed to Router in <code>index.php</code>.</li>
+<li>
+<code>method</code> =&gt; The function being called with the target controller.</li>
+<li>
+<code>params</code> =&gt; The merged array of params from the query string and uri, set in the order that the named params exist
+on the function called, if any.</li>
+<li>
+<code>get</code> =&gt; A direct reference to $_GET.</li>
+<li>
+<code>post</code> =&gt; A direct reference to $_POST.</li>
+</ul><h3>
+<a name="restful" class="anchor" href="#restful"><span class="octicon octicon-link"></span></a>RESTful</h3>
+
+<p>As a convenience to those making a RESTful API, you can specify in the function name what request method it should
+handle, instead of needing to have a messy if statement on the value of <code>$this-&gt;request-&gt;verb</code> in your function.</p>
+
+<p>For example, if you want to declare a function, 'dothis', that handles only GET requests, and another that handles
+only POST requests, and a final version that handles all others, you would declare:</p>
+
+<div class="highlight highlight-php"><pre><span class="k">public</span> <span class="k">function</span> <span class="nf">dothis_GET</span><span class="p">(</span><span class="nx">param1</span><span class="p">,</span> <span class="nx">param2</span><span class="p">){}</span>
+<span class="k">public</span> <span class="k">function</span> <span class="nf">dothis_POST</span><span class="p">(</span><span class="nx">param1</span><span class="p">,</span> <span class="nx">param2</span><span class="p">,</span> <span class="nx">param3</span><span class="p">){}</span>
+<span class="k">public</span> <span class="k">function</span> <span class="nf">dothis</span><span class="p">(){}</span>
+</pre></div>
+
+<p>When <code>http://mysite.com/home/dothis/</code> is called via GET, the router will call dothis_GET first, if found. If not
+found, it will call the un-postfixed function. Thus, you can specify handlers for specific request methods, and
+a default handler for all others, with the name and the postfix clearly representing their relationship and the
+conditions under which they'll be called.</p>
+
+<h1>
+<a name="controllers-1" class="anchor" href="#controllers-1"><span class="octicon octicon-link"></span></a>Controllers</h1>
+
+<p>All controllers must live in your APP_DIR/controllers directory. Each controller should be named according to the
+class you intend. The naming rule is:</p>
+
+<p>File name: name.php
+Controller Class name: NameController</p>
+
+<p>Note the Controller postfix. You can change or eliminate this postfix, as noted under <a href="#requests">Requests</a>
+should you so desire.</p>
+
+<p>All controllers should extend the Controller class from system\core.</p>
+
+<div class="highlight highlight-php"><pre><span class="k">use</span> <span class="nx">sanemethod\kiskit\system\core\Controller</span><span class="p">;</span>
+
+<span class="k">class</span> <span class="nc">NameController</span> <span class="k">extends</span> <span class="nx">Controller</span> <span class="p">{}</span>
+</pre></div>
+
+<p>There is no need to explictly include the Controller php file - it will be automatically included for you.</p>
+
+<p>All public fuctions within a controller are accessible via url navigation; all protected and private functions are
+not, and any attempt to call them from url navigation will result in a 403.</p>
+
+<p>All Controller functions will have access to <code>$this-&gt;request</code> (a <a href="#requests">Request</a> object), and, if
+EXCEPT_HANDLER is set, <code>$this-&gt;logger</code> (an <a href="#logging-object">ExceptHandler</a> object).</p>
+
+<h3>
+<a name="functions" class="anchor" href="#functions"><span class="octicon octicon-link"></span></a>Functions</h3>
+
+<p>All Controllers have the following functions:</p>
+
+<h4>
+<a name="view" class="anchor" href="#view"><span class="octicon octicon-link"></span></a>View</h4>
+
+<p><code>$this-&gt;view()</code> =&gt; Display a php view. These views can be composited.
+For Example:</p>
+
+<div class="highlight highlight-php"><pre><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">view</span><span class="p">(</span><span class="s1">'header'</span><span class="p">);</span>
+<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">view</span><span class="p">(</span><span class="s1">'content'</span><span class="p">);</span>
+<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">view</span><span class="p">(</span><span class="s1">'footer'</span><span class="p">);</span>
+</pre></div>
+
+<p>Will display a single page comprised of the resulting markup of these three views.</p>
+
+<p>The first argument to view must be the view file. By default, all controllers will look in the APP_DIR/views
+directory for a file named the same as the string specified, minus the extension (ie. <code>header.php</code>). You can split
+the views into their own subdirectories and either specify the subdirectory when calling the view (ie.
+<code>$this-&gt;view('home/header.php')</code>) or set a constant VIEW_LOC on the controller which indicates where all the views
+for this controller should be found (ie. <code>const VIEW_LOC = 'home';</code>).</p>
+
+<p>The second argument is optional - an array of values that will be extracted as local variables.</p>
+
+<div class="highlight highlight-php"><pre><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">view</span><span class="p">(</span><span class="s1">'content'</span><span class="p">,</span> <span class="p">[</span><span class="s1">'firstvar'</span><span class="o">=&gt;</span><span class="s1">'banana'</span><span class="p">,</span> <span class="s1">'secondvar'</span><span class="o">=&gt;</span><span class="s1">'pie'</span><span class="p">]);</span>
+</pre></div>
+
+<p>Inside the view file, you will now have access to $firstvar and $secondvar.</p>
+
+<h4>
+<a name="json" class="anchor" href="#json"><span class="octicon octicon-link"></span></a>Json</h4>
+
+<p><code>$this-&gt;json()</code> =&gt; Return json to the client. This sends the appropriate headers (and thus must not be called if
+any other output has previously occurred), and outputs the results of <a href="http://ca1.php.net/json_encode">json_encode</a>.
+The first argument should be the value (array, object, etc.) to encode, and the optional second argument encoding
+options as per the PHP json_encode function.</p>
+
+<p>Example:</p>
+
+<div class="highlight highlight-php"><pre><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">json</span><span class="p">([</span><span class="s1">'first'</span><span class="o">=&gt;</span><span class="mi">1</span><span class="p">,</span> <span class="s1">'second'</span><span class="o">=&gt;</span><span class="mi">2</span><span class="p">,</span> <span class="s1">'third'</span><span class="o">=&gt;</span><span class="mi">3</span><span class="p">]);</span>
+</pre></div>
+
+<p>Returns:</p>
+
+<div class="highlight highlight-json"><pre><span class="p">{</span><span class="nt">"first"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span> <span class="nt">"second"</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span> <span class="nt">"third"</span><span class="p">:</span><span class="mi">3</span><span class="p">}</span>
+</pre></div>
+
+<h4>
+<a name="file" class="anchor" href="#file"><span class="octicon octicon-link"></span></a>File</h4>
+
+<p><code>$this-&gt;file()</code> =&gt; Offers a file for download, as specified by the arguments to the function call.</p>
+
+<p>Example:</p>
+
+<div class="highlight highlight-php"><pre><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">file</span><span class="p">(</span><span class="s1">'path/To/File.txt'</span><span class="p">,</span> <span class="s1">'newFileName.txt'</span><span class="p">);</span>
+</pre></div>
+
+<h4>
+<a name="upload" class="anchor" href="#upload"><span class="octicon octicon-link"></span></a>Upload</h4>
+
+<p><code>$this-&gt;upload()</code> =&gt; Handle a (potentially chunked) file upload. Returns JSON representation of file details and
+write success. If chunked upload, also returns the content range written.</p>
+
+<p>Example:</p>
+
+<div class="highlight highlight-php"><pre><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">upload</span><span class="p">(</span><span class="s1">'newFileName.txt'</span><span class="p">,</span> <span class="s1">'path/to/save/to'</span><span class="p">,</span> <span class="s1">'json'</span><span class="p">);</span>
+</pre></div>
+
+<p>Returns:</p>
+
+<div class="highlight highlight-json"><pre><span class="p">{</span><span class="nt">"file"</span><span class="p">:{</span><span class="nt">"size"</span><span class="p">:</span><span class="mi">123560</span><span class="p">,</span> <span class="nt">"name"</span><span class="p">:</span><span class="s2">"newFileName.txt"</span><span class="p">,</span> <span class="nt">"path"</span><span class="p">:</span><span class="s2">"path/to/save/to"</span><span class="p">,</span> <span class="err">type:</span><span class="nt">"mimeType"</span><span class="p">},</span> <span class="nt">"success"</span><span class="p">:</span><span class="kc">true</span><span class="p">}</span>
+</pre></div>
+
+<h4>
+<a name="model" class="anchor" href="#model"><span class="octicon octicon-link"></span></a>Model</h4>
+
+<p><code>$this-&gt;model()</code> =&gt; Load the specified model. Returns a new <a href="#using-models">model object</a>.</p>
+
+<p>Example:</p>
+
+<div class="highlight highlight-php"><pre><span class="nv">$users</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">model</span><span class="p">(</span><span class="s1">'users'</span><span class="p">);</span>
+<span class="nv">$firstUser</span> <span class="o">=</span> <span class="nv">$users</span><span class="o">-&gt;</span><span class="na">selectOne</span><span class="p">([</span><span class="s1">'where'</span><span class="o">=&gt;</span><span class="p">[</span><span class="s1">'user_id'</span> <span class="o">=&gt;</span> <span class="mi">1</span><span class="p">]]);</span>
+</pre></div>
+
+<h4>
+<a name="helper" class="anchor" href="#helper"><span class="octicon octicon-link"></span></a>Helper</h4>
+
+<p><code>$this-&gt;helper()</code> =&gt; Load a helper - a class that provide some particular functionality (like email or file
+handling). Returns a new object of that class. As helpers can be a varied lot, see the individual helper to
+determine its usage.</p>
+
+<p>Example:</p>
+
+<div class="highlight highlight-php"><pre><span class="nv">$email</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">helper</span><span class="p">(</span><span class="s1">'email'</span><span class="p">);</span>
+<span class="nv">$email</span><span class="o">-&gt;</span><span class="na">from</span><span class="p">(</span><span class="s1">'test@test.com'</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">to</span><span class="p">([</span><span class="s2">"first@test.com"</span><span class="p">,</span> <span class="s2">"second@test.com"</span><span class="p">])</span>
+            <span class="o">-&gt;</span><span class="na">subject</span><span class="p">(</span><span class="s1">'Test Email'</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">message</span><span class="p">(</span><span class="s2">"Message String"</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">send</span><span class="p">();</span>
+</pre></div>
+
+<h4>
+<a name="lib" class="anchor" href="#lib"><span class="octicon octicon-link"></span></a>Lib</h4>
+
+<p><code>$this-&gt;lib()</code> =&gt; Load a third-party library (installed under the vendor directory, PSR-0 or PSR-4 compliant or,
+with the proper configuration in the Composer autoload, otherwise). Returns a new object of the specified class.
+What this object will offer you is entirely library specific. Note that you <strong>DON'T</strong> have to use this to
+load third-party libraries - its merely a convenience (indeed, helpers and models can also be loaded via
+direct reference - just add the appropriate <code>use</code> statement above the Controller class).</p>
+
+<p>Example:</p>
+
+<div class="highlight highlight-php"><pre><span class="nv">$monologJsonFormatter</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">lib</span><span class="p">(</span><span class="s1">'Monolog\Formatter\JsonFormatter'</span><span class="p">,</span> <span class="nx">arg1</span><span class="p">,</span> <span class="nx">arg2</span><span class="p">);</span>
+</pre></div>
+
+<p>Is just an alias for:</p>
+
+<div class="highlight highlight-php"><pre><span class="nv">$monologJsonFormatter</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Monolog\Formatter\JsonFormatter</span><span class="p">(</span><span class="nx">arg1</span><span class="p">,</span> <span class="nx">arg2</span><span class="p">);</span>
+</pre></div>
+
+<h4>
+<a name="load" class="anchor" href="#load"><span class="octicon octicon-link"></span></a>Load</h4>
+
+<p><code>$this-&gt;load()</code> =&gt; Load an arbitrary file, and instantiate a class found therein. This method underlies the
+other class loading methods, and allows you to specify certain options if you want to avoid using the defaults
+(for instance, you want to load a model whose class doesn't have the 'Model' postfix).</p>
+
+<p>Example:</p>
+
+<div class="highlight highlight-php"><pre><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">load</span><span class="p">(</span><span class="nx">SERVER_ROOT</span><span class="o">.</span><span class="nx">APP_DIR</span><span class="o">.</span><span class="s1">'models/users'</span><span class="p">);</span>
+</pre></div>
+
+<p>Will load <code>users.php</code> from the specified directory and attempt to instantiate and return an object of class <code>Users</code>.</p>
+
+<h1>
+<a name="databases-pdo-and-models-1" class="anchor" href="#databases-pdo-and-models-1"><span class="octicon octicon-link"></span></a>Databases, PDO and Models</h1>
+
+<p>All of your models must live in the APP_DIR/models directory by default, and should extend system/core/Model.</p>
+
+<p>Example:</p>
+
+<div class="highlight highlight-php"><pre><span class="k">use</span> <span class="nx">sanemethod\kiskit\system\core\Model</span><span class="p">;</span>
+
+<span class="k">class</span> <span class="nc">UserModel</span> <span class="k">extends</span> <span class="nx">Model</span><span class="p">{}</span>
+</pre></div>
+
+<p>Note the 'Model' postfix - all model classes should end in Model (in the same way that all Controller classes
+should end in Controller) by default. You can use <a href="#load">Load</a> to instantiate your model class and
+avoid this, if you prefer.</p>
+
+<h4>
+<a name="using-models" class="anchor" href="#using-models"><span class="octicon octicon-link"></span></a>Using Models</h4>
+
+<p>KisKit models provide a layer of abstraction over PHP PDO, which itself is a data-access abstraction layer for
+various databases. It is not meant to be comprehensive - in some cases, you will want to create functions
+on each model to directly interact with PDO, rather than using simple abstractions. In many cases, however,
+the abstractions may save time on simple, routine operations.</p>
+
+<p>All Models should have a <code>__construct</code> function that calls construct on the super class and establishes the
+database connection.</p>
+
+<div class="highlight highlight-php"><pre><span class="k">function</span> <span class="nf">__construct</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="k">parent</span><span class="o">::</span><span class="na">__construct</span><span class="p">();</span>
+    <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">dbh</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">dbConnect</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+
+<p>This database handle (dbh) should then be used when manually preparing PDO SQL statements. See
+<a href="http://www.php.net/manual/en/intro.pdo.php">PDO</a> for more details.</p>
+
+<h5>
+<a name="model-properties" class="anchor" href="#model-properties"><span class="octicon octicon-link"></span></a>Model properties</h5>
+
+<p>Every model possess the following properties:</p>
+
+<p><code>table</code> =&gt; The name of the table, as a string. Empty string by default. You should set this within the class.</p>
+
+<p>Example:</p>
+
+<div class="highlight highlight-php"><pre><span class="k">class</span> <span class="nc">UserModel</span> <span class="k">extends</span> <span class="nx">Model</span><span class="p">{</span>
+    <span class="k">protected</span> <span class="nv">$table</span> <span class="o">=</span> <span class="s1">'table_name'</span><span class="p">;</span>
+</pre></div>
+
+<p><code>fieldWhiteList</code> =&gt; An array of strings, indicating names of fields in the table that insertion and
+update operations are allowed on. Any fields included in a insert or update operation that aren't in the
+white list will be silently filtered out.</p>
+
+<h5>
+<a name="model-functions" class="anchor" href="#model-functions"><span class="octicon octicon-link"></span></a>Model functions</h5>
+
+<p>Every model possesses the following db abstractions for selecting, inserting, updating and deleting rows.</p>
+
+<p><code>$this-&gt;tableExists()</code> =&gt; Check whether $this-&gt;table exists in the database. Returns boolean.
+<code>$this-&gt;select()</code> =&gt; Select any number of rows from this table based on the $where array, where each key should be
+the field we want to select on in the db, and the array value the value of said field: array(id=&gt;5, name=&gt;'bob').
+Select all fields (default) or specify fields as an array (id, name, date) or as a string "id, name, date".
+Returns an associative (potentially multi-dimensional) array if successful, false otherwise.</p>
+
+<pre><code>@param array $options{
+    @type string|array $fields
+    @type array $where
+    @type int $fetchMode
+    @type bool $fetchOne Whether to limit this fetch to a single result.
+}
+@return bool|array
+</code></pre>
+
+<p>Example:</p>
+
+<div class="highlight highlight-php"><pre><span class="k">var</span> <span class="nv">$users</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">model</span><span class="p">(</span><span class="s1">'users'</span><span class="p">);</span>
+<span class="nv">$user</span><span class="o">-&gt;</span><span class="na">select</span><span class="p">([</span><span class="s1">'fields'</span><span class="o">=&gt;</span><span class="s1">'name'</span><span class="p">,</span> <span class="s1">'where'</span><span class="o">=&gt;</span><span class="p">[</span><span class="s1">'user_songs'</span> <span class="o">=&gt;</span> <span class="mi">1</span><span class="p">]]);</span>
+</pre></div>
+
+<p>Will return an array of the name field of all user rows that match the criteria.</p>
+
+<p><code>$this-&gt;selectOne()</code> =&gt; As select, but will fetch only the first row of any result set.
+<code>$this-&gt;insert()</code> =&gt; Inserts a single record into the table. Accepts an associative array as a parameter,
+where each key should correspond to a table field name, with the associated value being inserted into that column.
+It is never required to include a tables primary key unless it doesn't possess a default value.</p>
+
+<p>Example:</p>
+
+<div class="highlight highlight-php"><pre><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">insert</span><span class="p">([</span><span class="s1">'name'</span><span class="o">=&gt;</span><span class="s1">'Bob'</span><span class="p">,</span> <span class="s1">'songs'</span><span class="o">=&gt;</span><span class="mi">5</span><span class="p">]);</span>
+</pre></div>
+
+<p><code>$this-&gt;insertMany()</code> =&gt; As insert, passing instead a multidimensional array, where element of the array is
+an array formatted as per insert. Transactional.</p>
+
+<p><code>$this-&gt;update</code> =&gt; Update a single row based on the $record and $where arrays. The $where array should contain
+key(s) that exist within our $record array, and indicate which $keys should be used for the WHERE statement.
+Parameters: array $record, array|string $where.</p>
+
+<p>Example:</p>
+
+<div class="highlight highlight-php"><pre><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">update</span><span class="p">([</span><span class="s1">'name'</span><span class="o">=&gt;</span><span class="s1">'joe'</span><span class="p">],</span> <span class="p">[</span><span class="s1">'id'</span><span class="o">=&gt;</span><span class="mi">5</span><span class="p">]);</span>
+</pre></div>
+
+<p><code>$this-&gt;updateMany()</code> =&gt; As per update, with the same modifications as insertMany.</p>
+
+<p><code>$this-&gt;delete()</code> =&gt; Delete any number of rows which match the where statement.
+Parameter: array|string $where</p>
+
+<p>Example:</p>
+
+<div class="highlight highlight-php"><pre><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">delete</span><span class="p">([</span><span class="s1">'id'</span><span class="o">=&gt;</span><span class="mi">5</span><span class="p">]);</span>
+</pre></div>
+
+<h5>
+<a name="model-createtable" class="anchor" href="#model-createtable"><span class="octicon octicon-link"></span></a>Model CreateTable</h5>
+
+<p>Definining a function named <code>createTable()</code> on a model will cause that function to be run during the execution
+of <code>setup.php</code>. This is an excellent way to have tables automatically generated for you when running - the code
+within will only execute if the table doesn't currently exist.</p>
+
+<p>Example:</p>
+
+<div class="highlight highlight-php"><pre><span class="sd">/**</span>
+<span class="sd"> * Create the table.</span>
+<span class="sd"> * @return bool false if failed to create table, else true</span>
+<span class="sd"> */</span>
+<span class="k">function</span> <span class="nf">createTable</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="nv">$ct</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">dbh</span><span class="o">-&gt;</span><span class="na">prepare</span><span class="p">(</span>
+        <span class="s2">"CREATE TABLE </span><span class="si">{</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">table</span><span class="si">}</span><span class="s2"> (</span>
+<span class="s2">          user_id INT NOT NULL,</span>
+<span class="s2">          user_code VARCHAR(255) NOT NULL,</span>
+<span class="s2">          PRIMARY KEY (user_id)</span>
+<span class="s2">        )"</span>
+    <span class="p">);</span>
+    <span class="nv">$ct</span><span class="o">-&gt;</span><span class="na">execute</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+
+<h1>
+<a name="exceptions-and-logging-1" class="anchor" href="#exceptions-and-logging-1"><span class="octicon octicon-link"></span></a>Exceptions and Logging</h1>
+
+<h4>
+<a name="configuration" class="anchor" href="#configuration"><span class="octicon octicon-link"></span></a>Configuration</h4>
+
+<p>Error Levels:</p>
+
+<ul>
+<li>100 =&gt; 'DEBUG'</li>
+<li>200 =&gt; 'INFO'</li>
+<li>250 =&gt; 'NOTICE'</li>
+<li>300 =&gt; 'WARNING'</li>
+<li>600 =&gt; 'ERROR'</li>
+<li>700 =&gt; 'CRITICAL'</li>
+<li>800 =&gt; 'ALERT'</li>
+<li>900 =&gt; 'EMERGENCY'</li>
+</ul><p>Setting any of the possible error outputs to one of the error levels will cause all errors of that level and
+above to be logged to the appropriate output.</p>
+
+<p>Possible Error Outputs:</p>
+
+<ul>
+<li>'stderr' =&gt; php standard error output (php://stderr) - usually for CLI;</li>
+<li>'file' =&gt; log to a file (date-stamped, stored in logPath);</li>
+<li>'html' =&gt; log as html output (using logTemplate, detail controlled by webTrace);</li>
+<li>'json' =&gt; log as json output (will override html).</li>
+</ul><p>Webtrace:</p>
+
+<ul>
+<li>true == display full details of errors in html error page, including stack trace.</li>
+<li>false == display only simple error messages.</li>
+</ul><h4>
+<a name="exceptions" class="anchor" href="#exceptions"><span class="octicon octicon-link"></span></a>Exceptions</h4>
+
+<p>So long as <code>EXCEPT_HANDLER</code> is set, all exceptions will be picked up on (but not caught) by ExceptHandler
+(accessible from Controllers as $this-&gt;logger). This allows us to log exceptions, fatal or otherwise, to
+files and other appropriate outputs. By default, ExceptHandler will output to a file named according to
+the date (ie. 2014_01_31.log).</p>
+
+<p>Depending on the value of <code>webTrace</code>, the html output will include either the full strack trace in addition
+to a meaingful error message, or just a simple error message.</p>
+
+<p>Any uncaught exceptions you throw can also trigger logging and display, so you can, for instance, throw an
+exception with a 403 from isnide of a controller to trigger display of a 403 message.</p>
+
+<p>Example:</p>
+
+<div class="highlight highlight-php"><pre><span class="k">throw</span> <span class="k">new</span> <span class="nx">Exception</span><span class="p">(</span><span class="s1">'Access Denied'</span><span class="p">,</span> <span class="mi">403</span><span class="p">);</span>
+</pre></div>
+
+<h4>
+<a name="logging-object" class="anchor" href="#logging-object"><span class="octicon octicon-link"></span></a>Logging Object</h4>
+
+<p>You can also without throwing exceptions from any controller, via <code>$this-&gt;logger</code>. For any log, you can specify the
+log level, log message, and an optional array which will be interpolated with the log message.</p>
+
+<p>Example:</p>
+
+<div class="highlight highlight-php"><pre><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">logger</span><span class="o">-&gt;</span><span class="na">log</span><span class="p">(</span><span class="nx">ExceptHandler</span><span class="o">::</span><span class="na">ALERT</span><span class="p">,</span> <span class="s2">"Replace {this} and {like} it!"</span><span class="p">,</span> <span class="p">[</span><span class="s2">"this"</span><span class="o">=&gt;</span><span class="s2">"that"</span><span class="p">,</span> <span class="s2">"like"</span><span class="o">=&gt;</span><span class="s2">"hate"</span><span class="p">]);</span>
+</pre></div>
+
+<p>Will result in a log message like: <code>Replace that and hate it!</code></p>
+
+<p>You can also use level specific aliases to skip needing to specify the log level.</p>
+
+<p>Example:</p>
+
+<div class="highlight highlight-php"><pre><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">logger</span><span class="o">-&gt;</span><span class="na">debug</span><span class="p">(</span><span class="s1">'Simple Debug Message'</span><span class="p">);</span>
+<span class="nv">$this</span><span class="o">-&gt;</span><span class="na">logger</span><span class="o">-&gt;</span><span class="na">info</span><span class="p">(</span><span class="s1">'Info message - slightly higher level than debug!'</span><span class="p">);</span>
+</pre></div>
+      </section>
+
+    </div>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+    
+  </body>
+</html>
