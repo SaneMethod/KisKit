@@ -64,7 +64,7 @@ One-Time Setup Steps
 
 1. Alter `config.php`, `logconfig.php` and `dbconfig.php` to reflect your configuration - all can be found in the
 `config` directory.
-    * See sections [Constants](#constants) and [Config Files](#config) below to get more details on what each of
+    * See sections [Constants](#constants) and [Config Files](#config-files) below to get more details on what each of
     these configuration files contain and do.
     * KisKit offers a simple abstraction layer for database interaction that sit atop PHP's
 [PDO](http://www.php.net/manual/en/intro.pdo.php) database interface, and is thus compatible with any db solution
@@ -144,7 +144,7 @@ the `CONSTANTS` section.
 **dbconfig.php**: This file contains a multidimensional array, each element of which is an array of database
 configuration options. Each array should be named according to the value you will set `DB_GROUP` to in `config.php`.
 
-See [Databases, PDO and Models](#models) for more details.
+See [Databases, PDO and Models](#databases-pdo-and-models-1) for more details.
 
 Example:
 
@@ -164,7 +164,7 @@ Example:
 is an array of logging configuration options. Each array should be named according to the value you will set
 `EXCEPTION_HANDLER` to in `config.php`.
 
-See [Exceptions and Logging](#logging) for more details.
+See [Exceptions and Logging](#exceptions-and-logging-1) for more details.
 
 Example:
 
@@ -196,8 +196,8 @@ Will instantiate the HomeController class in home.php within the app/controllers
 It will then check whether there's a method named 'dothis' in home, and whether dothis is public. If both are
 true, dothis will handle the request. If the former is false, an exception (with code 404) is thrown. If the
 latter, an exception (with code 403) is thrown. ExceptHandler will understand these as HTTP exceptions and
-treat them accordingly, sending the proper headers and a customizable error page (see [Logging](#logging) for
-more details).
+treat them accordingly, sending the proper headers and a customizable error page (see
+[Logging](#exceptions-and-logging-1) for more details).
 
 ### Routing Parameters
 Parameters can be passed into a function via either the uri or the query string when performing any request.
@@ -285,7 +285,7 @@ class you intend. The naming rule is:
 File name: name.php
 Controller Class name: NameController
 
-Note the Controller postfix. You can change or eliminate this postfix, as noted under [Requests](#routingRequest)
+Note the Controller postfix. You can change or eliminate this postfix, as noted under [Requests](#requests)
 should you so desire.
 
 All controllers should extend the Controller class from system\core.
@@ -301,8 +301,8 @@ There is no need to explictly include the Controller php file - it will be autom
 All public fuctions within a controller are accessible via url navigation; all protected and private functions are
 not, and any attempt to call them from url navigation will result in a 403.
 
-All Controller functions will have access to `$this->request` (a [Request](#routingRequest) object), and, if
-EXCEPT_HANDLER is set, `$this->logger` (an [ExceptHandler](#loggingLogger) object).
+All Controller functions will have access to `$this->request` (a [Request](#requests) object), and, if
+EXCEPT_HANDLER is set, `$this->logger` (an [ExceptHandler](#logging-object) object).
 
 ###Functions
 All Controllers have the following functions:
@@ -377,8 +377,7 @@ Returns:
 ```
 
 ####Model
-`$this->model()` => Load the specified model. Returns a new [model object](#modelsOb). See [Models](#models) for
-more details.
+`$this->model()` => Load the specified model. Returns a new [model object](#using-models).
 
 Example:
 
@@ -445,7 +444,7 @@ class UserModel extends Model{}
 ```
 
 Note the 'Model' postfix - all model classes should end in Model (in the same way that all Controller classes
-should end in Controller) by default. You can use [Load](#controllerLoad) to instantiate your model class and
+should end in Controller) by default. You can use [Load](#load) to instantiate your model class and
 avoid this, if you prefer.
 
 ####Using Models
