@@ -13,9 +13,9 @@ return array(
         'driver' => 'mysql',
         // Number to specify port, null to use default port
         'port' => 3306,
-        'username' => 'cedb',
-        'password' => 'ceck93z%!NWzy3R^@!5w8>h',
-        'database' => 'cedb'
+        'username' => 'user',
+        'password' => 'pass',
+        'database' => 'db'
     ),
     'production' => array(
         'hostname' => '127.0.0.1',
