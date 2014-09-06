@@ -8,9 +8,12 @@
             "homepage":"http://kiskit.sanemethod.com"
         }
     ],
-    "require": {
+    "require":{
         "php": ">=5.4.0",
         "psr/log": "~1.0"
+    },
+    "require-dev":{
+        "phpunit/phpunit": "~3.7"
     },
     "suggest":{
         "monolog/monolog": "A more comprehensive logger compatible with psr-3.",

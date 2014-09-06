@@ -33,7 +33,8 @@ class Router{
             '403'=>null,
             'conhome'=>SERVER_ROOT . APP_DIR . 'controllers/',
             'conPostfix'=>'Controller',
-            'debug'=>true
+            'debug'=>true,
+            'logger'=>null
         ), $options);
     }
 
